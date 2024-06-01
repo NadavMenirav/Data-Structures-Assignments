@@ -1,0 +1,147 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\title{Ex1}
+\author{Nadav Menirav}
+\date{May 2024}
+\newcommand{\dlim}{\displaystyle\lim_{n\to\infty}}
+\newcommand{\dsum}{\displaystyle\sum}
+\begin{document}
+
+\maketitle
+
+\section{Prove / Disprove: }
+\begin{enumerate}
+    \item $2^{\sqrt{\log(n)}}\in\Theta(n)$\\
+    
+    \textbf{Disproof:}\\
+    \\
+    $\displaystyle\lim_{n\to\infty}{\frac{2^{\sqrt{\log{n}}}}{n}}=\displaystyle\lim_{n\to\infty}{\frac{2^{\sqrt{\log{n}}}}
+    {2^{\log{n}}}}=\displaystyle\lim_{n\to\infty}{2^{\sqrt{\log{n}}-\log{n}}}$\\
+    
+    But we know that $\displaystyle\lim_{n\to\infty}{\sqrt{\log{n}}-\log{n}}=\displaystyle\lim_{n\to\infty}{\sqrt{\log{n}}\cdot\left(1-\sqrt{\log{n}}\right)\longrightarrow-\infty}$
+    (because $\sqrt{\log{n}}\longrightarrow\infty$ and $\left(1-\sqrt{\log{n}}\right)\longrightarrow-\infty$)\\
+
+    So overall we got $\displaystyle\lim_{n\to\infty}{2^{\sqrt{\log{n}}-\log{n}}}=0$ therefore $\displaystyle\lim_{n\to\infty}{\frac{2^{\sqrt{\log{n}}}}{n}}=0$\\
+    
+    And because of that (according to the lecture), $2^{\sqrt{\log(n)}}\notin\Theta(n)$\\
+    $$\blacksquare$$
+    \\
+    \item $2^{\sqrt{\log(n)}}\in\omega\left(\log^{10}{n}\right)$\\
+    \textbf{Proof:}\\
+    \\
+    $\displaystyle\lim_{n\to\infty}{\frac{2^{\sqrt{\log{n}}}}{\log^{10}{n}}}=\displaystyle\lim_{n\to\infty}
+    {\frac{2^{\sqrt{\log{n}}}}
+    {2^{\log({\log^{10}{n})}}}}=\displaystyle\lim_{n\to\infty
+    }{2^{\sqrt{\log{n}}-\log({\log^{10}{n})}}}
+    \displaystyle\lim_{n\to\infty
+    }{2^{\sqrt{\log{n}}-10\log({\log{n})}}}$\\
+    But we also know that $\displaystyle\lim_{n\to\infty}{\sqrt{\log{n}}-10\log(\log{n})}
+    =\displaystyle\lim_{n\to\infty}{\sqrt{\log{n}}\left(1-\frac{10\log(\log{n})}{\sqrt{\log{n}}}\right)}\\$
+    We can also see that $\displaystyle\lim_{n\to\infty}{\frac{10\log(\log{n})}{\sqrt{\log{n}}}}
+    \underset{\text{L'Hôpital's rule}}{=}\displaystyle\lim_{n\to\infty}
+    {\displaystyle\frac{10\cdot\frac{1}{n\ln{2}}\cdot\frac{1}{\log{n}}}{\frac{1}{n\ln{2}}\cdot\frac{1}{2\sqrt{\log{n}}}}}=
+    \dlim{\frac{20\sqrt{\log{n}}}{\log{n}}}=\dlim{\frac{20}{\sqrt{\log{n}}}}=0$\\
+    Therefore $\displaystyle\lim_{n\to\infty}{\frac{2^{\sqrt{\log{n}}}}{\log^{10}{n}}}=\displaystyle\lim_{n\to\infty}{{\sqrt{\log{n}}\left(1-\frac{10\log(\log{n})}{\sqrt{\log{n}}}\right)}}=\\\\
+    \dlim{\sqrt{\log{n}}}=\infty$ And according to the Tirgul, we can say that\\\\ $2^{\sqrt{\log(n)}}\in\omega\left(\log^{10}{n}\right)$\\
+    $$\blacksquare$$
+    \\
+    \item $\frac{n}{2}\log{\frac{n}{2}}\in\Omega\left(n\log{n}\right)$\\
+    \\
+    \textbf{Proof:}\\
+    \\
+    $\displaystyle\lim_{n\to\infty}{\frac{\frac{n}{2}\log{\frac{n}{2}}}{n\log{n}}}=\frac{1}{2}\displaystyle\lim_{n\to\infty}{\frac{\log{\frac{n}{2}}}{\log{n}}}\underset{(\text{L'Hôpital's rule})}{=}\frac{1}{2}\displaystyle\lim_{n\to\infty}{\frac{\frac{1}{2}\cdot\frac{2}{n}}{\frac{1}{n}}}=\frac{1}{2}\displaystyle\lim_{n\to\infty}{\frac{\frac{1}{n}}{\frac{1}{n}}}=\displaystyle\lim_{n\to\infty}{\frac{1}{2}}=\frac{1}{2}>0.$ So overall (according to the lecture) we got\\\\
+    $\frac{n}{2}\log{\frac{n}{2}}\in\Theta\left(n\log{n}\right)$ Thus in particular $\frac{n}{2}\log{\frac{n}{2}}\in\Omega\left(n\log{n}\right)$
+    $$\blacksquare$$
+\end{enumerate}
+\section{Let f, g be two positive functions. Prove/Disprove:}
+\begin{enumerate}
+    \item if f and g are monotonic, then $f\in{}O(g)$ or $g\in{}O(f)$\\
+    \textbf{Disproof:}\\\\
+    Let f, g be the following:\\
+    \[
+    f(n)=
+        \begin{cases}
+            \text{$n^{n},$} &\quad\text{if n is even}\\
+            \text{$(n-1)^{n-1}, $} &\quad\text{if n is odd}\\
+        \end{cases}
+    g(n)=
+        \begin{cases}
+            \text{$n^{n},$} &\quad\text{if n is odd}\\
+            \text{$(n-1)^{n-1}, $} &\quad\text{if n is even}\\
+        \end{cases}
+    \]
+    We will start by proving they are monotonic.\\
+    let $j$ be an even integer, let $m$ be an odd integer.\\
+    $f(j)=j^j, f(j+1)=j^{j}=f(j).\\
+    f(m)=(m-1)^{m-1}>f(m+1)=(m+1)^{m+1}.$
+    So overall $f(n)$ is decreasing (weak term) for every n.\\
+    $g(j)=(j-1)^{j-1}<(j+1)^{j+1}=g(j+1).
+    g(m)=m^m=g(m+1)$ So overall  $g(n)$ is increasing (weak term) for every n.\\\\
+    We will now prove that $f\notin{}O(g)$. Suppose there are $c\in\mathbb{R}^{+}, N_0\in\mathbb{N}$ which for every $n>N_0$, $f(n)\le\ c\cdot g(n).$ Let $n_1>0$ be an even integer. $f(n)=n_1^{n_1}\le c\cdot g(n_1)=c\cdot(n_1-1)^{n_1-1}.$ 
+    Contradiction! there is not a real positive number c which applies for the above statements for every even integer that is bigger than $N_0$.\\
+    We will now prove that $g\notin{}O(f)$. Suppose there are $\Tilde{c}\in\mathbb{R}, \Tilde{N_0}\in\mathbb{N}$ which for every $n>\Tilde{N_0}$, $g(n)\le\ \Tilde{c}\cdot f(n).$ Let $n_0>\Tilde{N_0}$ be an odd integer. $g(n_0)=n_0^{n_0}\le c\cdot f(n_0) = (n_0-1)^{n_0-1}$ Contradiction! As we just saw, there is not a real number c which is suitable for that.
+    $$\blacksquare$$\\
+
+    \item $\Theta(max(f(n), g(n)))=\Theta(f(n)+g(n))$\\
+    \textbf{Proof:}\\\\
+    $\subseteq$\\
+    Let $\varphi(n)$ be in $\Theta(max(f(n), g(n))).$\\ That means that there are $c_1, c_2, N_0 \ge0$ that for every $n>N_0:\\ c_1\cdot max(f(n), g(n))\le\varphi(n)\le c_2\cdot max(f(n), g(n))$ And because of that we see that $\varphi(n)\le c_2\cdot\left(f(n)+g(n)\right).$ So that is why $\varphi(n)\in O(f(n)+g(n)).$ But we also know that $c_1\cdot max(f(n), g(n))\le\varphi(n)$ for every integer from a certain point. So $\frac{c_1}{2}\cdot2\cdot max(f(n), g(n))\le\varphi(n)$. That is why $\frac{c_1}{2}\cdot(f(n)+g(n))\le\varphi(n)$ and $\varphi(n)\in\Omega(f(n)+g(n))$. Overall we got $\varphi(n)\in\Theta(f(n)+g(n)). \square$\\\\
+    $\supseteq$\\
+    Let $\psi(n)$ be in $\Theta(f(n)+g(n))$. That means that there are $c_3,c_4,N_1>0$ That make for every $n>N_1, c_3(f(n)+g(n))\le\psi(n)\le c_4(f(n)+g(n)).$ hence $\psi(n)\le c_4(f(n)+g(n))\le c_4(max(f(n), g(n))+max(f(n), g(n)))\Rightarrow\psi(n)\le\frac{c_4}{2}\cdot max(f(n), g(n))$ That is why $\varphi(n)\in O(max(f(n), g(n))).$ Let's look at $c_3(f(n)+g(n))\le\psi(n). $We can say that $\psi(n)\ge c_3(f(n)+g(n))\ge c_3\cdot max(f(n), g(n))$. So we also got $\psi(n)\in\Omega(max(f(n), g(n))).$ Overall, $\psi(n)\in\Theta(max(f(n), g(n))).$
+    $$\blacksquare$$\\
+    \item If $f(n)\in\Theta(g(n))$ So $\omega(f(n))=\omega(g(n))$\\
+    \textbf{Proof:}\\\\
+    Let $\psi(n)$ be in $\omega(f(n))$.\\
+    That means that for every $c\in\mathbb{R}\ge0$ there is $N_0\in\mathbb{N}$ which makes for every $n>N_0,\ 
+     \psi(n)\ge c\cdot f(n).$
+     But we know that $f(n)\in\omega(g(n)).$
+     That means that there is $c_1\in\mathbb{R}\ge0$ such that $f(n)\ge c_1\cdot g(n)$.
+     Hence we get $\psi(n)\ge c\cdot c_1\cdot g(n).$
+     But $c$ can be every single positive real number, so
+     $c\cdot c_1$ can be every single positive real number,
+     and that proves $\psi(n)\in\omega(g(n))$
+     i.e $\omega(f(n))\subseteq\omega(g(n))$.\\
+     Because $f(n)\in\Theta(g(n)),$ we can also say $g(n)\in\Theta(f(n))$(By moving the constants to the other side of the equation).\\
+     Without any loss of generality, we can state that $\omega(g(n))\subseteq\omega(f(n)).$\\
+     By two-directional inclusion, 
+     $\omega(g(n))=\omega(f(n)).$
+     
+     $$\blacksquare$$
+     \end{enumerate}
+    
+    \section{Determine the runtime of the code, find $\Theta$:}
+    \begin{enumerate}
+    \item The outside loop runs $n-1$ times.
+    The inside one runs $\log_i{n}$ for every iteration of the outside loop. 
+    Overall the runtime is $T(n)=\displaystyle\sum_{i=2}^{n}{\log_i{n}}$.
+    $T(n)\le \displaystyle\sum_{i=2}^{\sqrt{n}}{\log_i{n}}+\displaystyle\sum_{i=\sqrt{n}+1}^{n}{\log_i{n}}
+    \underset{\text{If the base of the log is lower, the outcome is bigger}}{\le}\\
+    \sqrt{n}\cdot\log_{2}{n}+(n-\sqrt{n})\cdot\log_{\sqrt{n}}{n}
+    \underset{\log_2{n}<\sqrt{n} \text{ for every n from a certain point}}{<}\\
+    \sqrt{n}\cdot\sqrt{n}+\left(n-\sqrt{n}\right)\cdot2
+    =n+2n-2\sqrt{n}<3n$.\\\\
+    On  the other hand, $T(n)\underset{\text{If the base of the log is lower, the outcome is bigger}}{\ge}\\
+    (n-1)\cdot\log_nn=n-1\underset{\text{for every }n>1}{\ge}\frac{1}{2}n.$\\\\
+    To conclude, we know that $\frac{1}{2}n\le T(n)\le3n$ for every $n$ from a certain point, therefore $T(n)\in\Theta(n)$
+    $$\blacksquare$$\\
+
+    \item $T(n)=\dsum_{i=1}^{n^2}\dsum_{j=1}^{i}\dsum_{k=1}^{j}{1}=
+    \dsum_{i=1}^{n^2}\dsum_{j=1}^{i}{j}=
+    \dsum_{i=1}^{n^2}{\frac{i(i+1)}{2}}=
+    \frac{1}{2}\dsum_{i=1}^{n^2}{i^2}+\frac{1}{2}\dsum_{i=1}^{n^2}{i}=
+    \frac{1}{2}\cdot\frac{n^2\left(n^2+1\right)\left(2n^2+1\right)}{6}+\frac{1}{2}\cdot\frac{n^2\left(n^2+1\right)}{2}=
+    \frac{n^6+3n^4+2n^2}{6}\le\frac{n^6+3n^6+2n^6}{6}\\=n^6$\\\\
+    But also $\frac{n^6+3n^4+2n^2}{6}\ge\frac{n^6}{6}$\\
+    So overall we got $\frac{n^6}{6}\le T(n)\le n^6$\\\\
+    Therefore by definition, $T(n)\in\Theta(n^6)$
+    $$\blacksquare$$
+    
+    
+     
+    
+    
+\end{enumerate}
+\end{document}
